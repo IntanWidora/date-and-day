@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Fun: Days & Dates - Grade 7</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lilac: {
+                            50: '#F8F5FC',
+                            100: '#EFE7F8',
+                            200: '#DCCDF1',
+                            300: '#C5ACFA',
+                            400: '#AC82F8',
+                            500: '#9055F3',
+                            600: '#7B32EC',
+                            700: '#641FD1',
+                            800: '#521CA6',
+                            900: '#431983'
+                        },
+                        sage: {
+                            50: '#F2F9F5',
+                            100: '#E1F3E8',
+                            200: '#C2E6CF',
+                            300: '#93D1AC',
+                            400: '#61B685',
+                            500: '#3D9A65',
+                            600: '#2E7C50',
+                            700: '#266341',
+                            800: '#214F36',
+                            900: '#1C422E'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #EFE7F8 0%, #E1F3E8 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 10px 30px -5px rgba(123, 50, 236, 0.08);
+        }
+        .btn-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(61, 154, 101, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F2F9F5;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #C5ACFA;
+            border-radius: 10px;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-lilac-300 selection:text-lilac-900 pb-10">
+
+    <header id="mainHeader" class="hidden sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-lilac-200 shadow-sm transition-all">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('menu')">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-lilac-500 to-sage-400 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-calendar-day"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold bg-gradient-to-r from-lilac-700 to-sage-600 bg-clip-text text-transparent leading-tight">Date & Day Explorer</h1>
+                    <p class="text-xs text-slate-500 font-medium">English 7th Grade Learning</p>
+                </div>
+            </div>
+
+            <!-- Audio Assistant Toggle & Student Profile -->
+            <div class="flex items-center space-x-3">
+                <button id="audioToggleBtn" onclick="toggleAudio()" title="Toggle Audio Speech" class="flex items-center space-x-1.5 px-3 py-1.5 bg-lilac-100 hover:bg-lilac-200 text-lilac-700 font-bold text-xs rounded-full border border-lilac-300 transition">
+                    <i id="audioIcon" class="fa-solid fa-volume-high text-sage-600"></i>
+                    <span id="audioStatusText">Audio: ON</span>
+                </button>
+
+                <div class="flex items-center space-x-2 bg-lilac-50 border border-lilac-200 px-3 py-1.5 rounded-full">
+                    <div class="w-7 h-7 rounded-full bg-sage-500 text-white flex items-center justify-center font-bold text-xs" id="userAvatar">
+                        S
+                    </div>
+                    <div class="text-xs">
+                        <span id="headerStudentName" class="font-bold text-slate-700 block">Student Name</span>
+                        <span id="headerStudentClass" class="text-lilac-600 font-medium">Class 7A</span>
+                    </div>
+                    <button onclick="editIdentity()" title="Change Identity" class="text-slate-400 hover:text-lilac-600 ml-1 transition">
+                        <i class="fa-solid fa-pen-to-square text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pt-6">
+
+        <!-- SCREEN 0: STUDENT IDENTITY FORM (CLASSES 7A TO 7I) -->
+        <section id="screenIdentity" class="min-h-[85vh] flex items-center justify-center py-6">
+            <div class="glass-card max-w-md w-full p-8 rounded-3xl shadow-xl border border-white/80 relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-36 h-36 bg-lilac-300/40 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute -bottom-12 -left-12 w-36 h-36 bg-sage-300/40 rounded-full blur-2xl pointer-events-none"></div>
+
+                <div class="text-center mb-6">
+                    <div class="w-20 h-20 bg-gradient-to-tr from-lilac-400 via-lilac-500 to-sage-400 rounded-3xl mx-auto flex items-center justify-center text-white text-3xl shadow-lg mb-3 animate-float">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-slate-800">Welcome, Student!</h2>
+                    <p class="text-xs text-slate-500 mt-1">Please enter your details to start learning the English Date & Day module.</p>
+                </div>
+
+                <form id="identityForm" onsubmit="saveIdentity(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Full Name</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-3.5 top-3.5 text-lilac-400 text-sm"></i>
+                            <input type="text" id="inputName" required placeholder="e.g., Sarah Johnson" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-lilac-200 rounded-xl focus:ring-2 focus:ring-lilac-500 focus:bg-white text-sm outline-none transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Class / Section (7A - 7I)</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-users-rectangle absolute left-3.5 top-3.5 text-sage-500 text-sm"></i>
+                            <select id="inputClass" required class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-sage-200 rounded-xl focus:ring-2 focus:ring-sage-500 focus:bg-white text-sm outline-none transition">
+                                <option value="" disabled selected>Select your class...</option>
+                                <option value="7A">Class 7A</option>
+                                <option value="7B">Class 7B</option>
+                                <option value="7C">Class 7C</option>
+                                <option value="7D">Class 7D</option>
+                                <option value="7E">Class 7E</option>
+                                <option value="7F">Class 7F</option>
+                                <option value="7G">Class 7G</option>
+                                <option value="7H">Class 7H</option>
+                                <option value="7I">Class 7I</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-lilac-600 to-sage-600 hover:from-lilac-700 hover:to-sage-700 text-white font-semibold rounded-xl shadow-lg btn-hover flex items-center justify-center space-x-2">
+                            <span>Start Learning Journey</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="screenMenu" class="hidden space-y-6">
+            <!-- Welcome Banner -->
+            <div class="bg-gradient-to-r from-lilac-600 via-lilac-500 to-sage-500 rounded-3xl p-6 md:p-8 text-white shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-6 -mr-6 w-48 h-48 bg-white/10 rounded-full blur-xl"></div>
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-medium tracking-wide uppercase">Interactive Learning Media</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold mt-2">Hello, <span id="welcomeName">Student</span>! 👋</h2>
+                    <p class="text-lilac-100 text-sm mt-2 leading-relaxed">Mastering English dates, days, months, and ordinal numbers made easy and fun! Choose a section below to get started.</p>
+                </div>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Module 1: Materials -->
+                <div onclick="navigateTo('materials')" class="glass-card p-6 rounded-2xl hover:border-lilac-400 border border-transparent cursor-pointer btn-hover group flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-lilac-100 group-hover:bg-lilac-500 text-lilac-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition-colors mb-4">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-lilac-700 transition">1. Materials</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Learn days, months, ordinal numbers, date formats (US & UK), and sample dialogues with male/female voice speech.</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-lilac-600">
+                        <span>Explore Content</span>
+                        <i class="fa-solid fa-chevron-right ml-1 transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+
+                <!-- Module 2: Practice -->
+                <div onclick="navigateTo('practice')" class="glass-card p-6 rounded-2xl hover:border-sage-400 border border-transparent cursor-pointer btn-hover group flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-sage-100 group-hover:bg-sage-500 text-sage-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition-colors mb-4">
+                            <i class="fa-solid fa-pen-ruler"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-sage-700 transition">2. Practice</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Interactive practice with instant feedback: 10 MCQs, 5 Fill-in-blanks, 5 Matching exercises.</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-sage-600">
+                        <span>Start Practicing</span>
+                        <i class="fa-solid fa-chevron-right ml-1 transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+
+                <!-- Module 3: Assessment -->
+                <div onclick="navigateTo('assessment')" class="glass-card p-6 rounded-2xl hover:border-lilac-400 border border-transparent cursor-pointer btn-hover group flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-lilac-100 group-hover:bg-lilac-600 text-lilac-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition-colors mb-4">
+                            <i class="fa-solid fa-clipboard-check"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-lilac-700 transition">3. Assessment</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Timed exam! 20 minutes countdown with automatic submission and detailed report card.</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-lilac-600">
+                        <span>Take Test</span>
+                        <i class="fa-solid fa-chevron-right ml-1 transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+
+                <!-- Module 4: Mini Game -->
+                <div onclick="navigateTo('game')" class="glass-card p-6 rounded-2xl hover:border-sage-400 border border-transparent cursor-pointer btn-hover group flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-sage-100 group-hover:bg-sage-500 text-sage-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition-colors mb-4">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-sage-700 transition">4. Mini Game</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Calendar Speed Rush! Fast-paced game with dynamic randomized choices each round.</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-sage-600">
+                        <span>Play Game</span>
+                        <i class="fa-solid fa-chevron-right ml-1 transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+
+                <!-- Module 5: Reflection -->
+                <div onclick="navigateTo('reflection')" class="glass-card p-6 rounded-2xl hover:border-lilac-400 border border-transparent cursor-pointer btn-hover group flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+                    <div>
+                        <div class="w-14 h-14 bg-lilac-100 group-hover:bg-lilac-500 text-lilac-600 group-hover:text-white rounded-2xl flex items-center justify-center text-2xl transition-colors mb-4">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-lilac-700 transition">5. Reflection</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">Evaluate your progress, rate your confidence, and write self-learning notes.</p>
+                    </div>
+                    <div class="mt-4 flex items-center text-xs font-semibold text-lilac-600">
+                        <span>Write Reflection</span>
+                        <i class="fa-solid fa-chevron-right ml-1 transition-transform group-hover:translate-x-1"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screenMaterials" class="hidden space-y-6">
+            <div class="flex items-center justify-between bg-white/70 p-4 rounded-2xl border border-lilac-200">
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateTo('menu')" class="w-9 h-9 bg-lilac-100 hover:bg-lilac-200 text-lilac-700 rounded-xl flex items-center justify-center transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Learning Materials</h2>
+                        <p class="text-xs text-slate-500">Days, Months, Ordinal Numbers, Date Formats (US & UK) & Gender Dialogues</p>
+                    </div>
+                </div>
+                <button onclick="speakText('Welcome to learning materials! Select tabs below to read and listen.')" class="px-3 py-1.5 bg-sage-500 text-white text-xs font-semibold rounded-lg hover:bg-sage-600 flex items-center space-x-1 transition">
+                    <i class="fa-solid fa-volume-high"></i>
+                    <span class="hidden sm:inline">Audio Assistant</span>
+                </button>
+            </div>
+
+            <!-- Material Tabs -->
+            <div class="flex overflow-x-auto space-x-2 pb-2 border-b border-lilac-200 custom-scrollbar">
+                <button onclick="switchMaterialTab('days')" id="tab-days" class="material-tab px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition bg-lilac-600 text-white shadow-md">
+                    <i class="fa-solid fa-calendar-days mr-1.5"></i> Days of the Week
+                </button>
+                <button onclick="switchMaterialTab('months')" id="tab-months" class="material-tab px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition bg-white text-slate-600 hover:bg-lilac-50">
+                    <i class="fa-solid fa-calendar-week mr-1.5"></i> Months & Ordinals
+                </button>
+                <button onclick="switchMaterialTab('dates')" id="tab-dates" class="material-tab px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition bg-white text-slate-600 hover:bg-lilac-50">
+                    <i class="fa-solid fa-earth-americas mr-1.5"></i> Date Formats (US & UK)
+                </button>
+                <button onclick="switchMaterialTab('dialogues')" id="tab-dialogues" class="material-tab px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition bg-white text-slate-600 hover:bg-lilac-50">
+                    <i class="fa-solid fa-comments mr-1.5"></i> Sample Dialogues
+                </button>
+            </div>
+
+            <!-- TAB 1: DAYS OF THE WEEK -->
+            <div id="content-days" class="material-content space-y-6">
+                <div class="glass-card p-6 rounded-3xl border border-lilac-200">
+                    <h3 class="text-base font-bold text-lilac-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-sun text-amber-500 mr-2"></i> Days of the Week (Nama-Nama Hari)
+                    </h3>
+                    <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                        In English, there are 7 days in a week. Days always start with a <strong>CAPITAL LETTER</strong>!
+                    </p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
+                        <div onclick="speakText('Monday')" class="p-3 bg-white border border-lilac-200 hover:border-lilac-500 rounded-2xl text-center cursor-pointer transition hover:scale-105 shadow-sm">
+                            <span class="text-xs font-semibold text-slate-400 block">Day 1</span>
+                            <span class="font-bold text-lilac-700 text-sm">Monday</span>
+                            <i class="fa-solid fa-volume-low text-xs text-lilac-400 block mt-1"></i>
+                        </div>
+                        <div onclick="speakText('Tuesday')" class="p-3 bg-white border border-lilac-200 hover:border-lilac-500 rounded-2xl text-center cursor-pointer transition hover:scale-105 shadow-sm">
+                            <span class="text-xs font-semibold text-slate-400 block">Day 2</span>
+                            <span class="font-bold text-lilac-700 text-sm">Tuesday</span>
+                            <i class="fa-solid fa-volume-low text-xs text-lilac-400 block mt-1"></i>
+                        </div>
+                        <div onclick="speakText('Wednesday')" class="p-3 bg-white border border-lilac-200 hover:border-lilac-500 rounded-2xl text-center cursor-pointer transition hover:scale-105 shadow-sm">
+                            <span class="text-xs font-semibold text-slate-400 block">Day 3</span>
+                            <span class="font-bold text-lilac-700 text-sm">Wednesday</span>
+                            <i class="fa-solid fa-volume-low text-xs text-lilac-400 block mt-1"></i>
+                        </div>
+                        <div onclick="speakText('Thursday')" class="p-3 bg-white border border-lilac-200 hover:border-lilac-500 rounded-2xl text-center cursor-pointer transition hover:scale-105 shadow-sm">
+                            <span class="text-xs font-semibold text-slate-400 block">Day 4</span>
+                            <span class="font-bold text-lilac-700 text-sm">Thursday</span>
+                            <i class="fa-solid fa-volume-low text-xs text-lilac-400 block mt-1"></i>
+                        </div>
+                        <div onclick="speakText('Friday')" class="p-3 bg-white border border-lilac-200 hover:border-lilac-500 rounded-2xl text-center cursor-pointer transition hover:scale-105 shadow-sm">
+                            <span class="text-xs font-semibold text-slate-400 block">Day 5</span>
+                            <span class="font-bold text-lilac-700 text-sm">Friday</span>
+                            <i class="fa-solid fa-volume-low text-xs text-lilac-400 block mt-1"></i>
+                        </div>
+                        <div onclick="speakText('Saturday')" class="p-3 bg-sage-50 border border-sage-300 hover:border-sage-500 rounded-2xl text-center cursor-pointer transition hover:scale-105 shadow-sm">
+                            <span class="text-xs font-semibold text-sage-500 block">Weekend</span>
+                            <span class="font-bold text-sage-700 text-sm">Saturday</span>
+                            <i class="fa-solid fa-volume-low text-xs text-sage-400 block mt-1"></i>
+                        </div>
+                        <div onclick="speakText('Sunday')" class="p-3 bg-sage-50 border border-sage-300 hover:border-sage-500 rounded-2xl text-center cursor-pointer transition hover:scale-105 shadow-sm">
+                            <span class="text-xs font-semibold text-sage-500 block">Weekend</span>
+                            <span class="font-bold text-sage-700 text-sm">Sunday</span>
+                            <i class="fa-solid fa-volume-low text-xs text-sage-400 block mt-1"></i>
+                        </div>
+                    </div>
+
+                    <!-- Key Prepositions & Expressions -->
+                    <div class="bg-gradient-to-r from-lilac-50 to-sage-50 p-4 rounded-2xl border border-lilac-200">
+                        <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">💡 Useful Time Expressions & Prepositions</h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                            <li>We use preposition <strong class="text-lilac-700">"ON"</strong> before days: <em>on Monday, on Sunday, on weekdays.</em></li>
+                            <li><strong>Today</strong> = hari ini | <strong>Tomorrow</strong> = besok | <strong>Yesterday</strong> = kemarin</li>
+                            <li><em>Example:</em> If today is Wednesday, yesterday was Tuesday, and tomorrow will be Thursday.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: MONTHS & ORDINAL NUMBERS -->
+            <div id="content-months" class="material-content hidden space-y-6">
+                <div class="glass-card p-6 rounded-3xl border border-lilac-200">
+                    <h3 class="text-base font-bold text-sage-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-list-ol text-sage-600 mr-2"></i> Months of the Year & Ordinal Numbers
+                    </h3>
+
+                    <!-- Months Grid -->
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Months (12 Months)</h4>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-6">
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>1. January</span> <button onclick="speakText('January')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>2. February</span> <button onclick="speakText('February')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>3. March</span> <button onclick="speakText('March')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>4. April</span> <button onclick="speakText('April')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>5. May</span> <button onclick="speakText('May')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>6. June</span> <button onclick="speakText('June')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>7. July</span> <button onclick="speakText('July')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>8. August</span> <button onclick="speakText('August')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>9. September</span> <button onclick="speakText('September')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>10. October</span> <button onclick="speakText('October')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>11. November</span> <button onclick="speakText('November')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                        <div class="p-2.5 bg-white border border-sage-200 rounded-xl text-xs flex justify-between items-center"><span>12. December</span> <button onclick="speakText('December')" class="text-sage-500 hover:text-sage-700"><i class="fa-solid fa-volume-high"></i></button></div>
+                    </div>
+
+                    <!-- Ordinal Numbers -->
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Ordinal Numbers (Angka Tingkat untuk Tanggal)</h4>
+                    <p class="text-xs text-slate-500 mb-3">When writing dates in English, we use <strong>Ordinal Numbers</strong> (1st, 2nd, 3rd, 4th...), NOT cardinal numbers (1, 2, 3...):</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 text-xs">
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('First')"><strong>1st</strong> - First</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Second')"><strong>2nd</strong> - Second</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Third')"><strong>3rd</strong> - Third</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Fourth')"><strong>4th</strong> - Fourth</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Fifth')"><strong>5th</strong> - Fifth</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Twenty first')"><strong>21st</strong> - Twenty-first</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Twenty second')"><strong>22nd</strong> - Twenty-second</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Twenty third')"><strong>23rd</strong> - Twenty-third</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Thirtieth')"><strong>30th</strong> - Thirtieth</div>
+                        <div class="p-2 bg-lilac-50 rounded-lg text-center border border-lilac-200 cursor-pointer hover:bg-lilac-100" onclick="speakText('Thirty first')"><strong>31st</strong> - Thirty-first</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: DATE FORMATS (US & UK STYLE) -->
+            <div id="content-dates" class="material-content hidden space-y-6">
+                <div class="glass-card p-6 rounded-3xl border border-lilac-200">
+                    <h3 class="text-base font-bold text-lilac-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-globe text-lilac-600 mr-2"></i> How to Tell Date in Different Ways
+                    </h3>
+                    <p class="text-xs text-slate-600 mb-4">There are two main ways to write and read dates in English: <strong>American Style (Month - Date)</strong> and <strong>British Style (Date - Month)</strong>.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- US Format -->
+                        <div class="p-4 bg-white rounded-2xl border-2 border-lilac-300 shadow-sm space-y-2">
+                            <span class="px-2.5 py-1 bg-lilac-100 text-lilac-700 text-xs font-bold rounded-md">🇺🇸 American Style (Month + Date + Year)</span>
+                            <div class="pt-2">
+                                <p class="text-xs font-bold text-slate-700">Written Formats:</p>
+                                <p class="text-sm font-semibold text-lilac-700">October 15, 2026 <span class="text-xs text-slate-500 font-normal">or</span> Oct 15th, 2026</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-700">Spoken/Read Format:</p>
+                                <p class="text-xs italic text-slate-600">"October fifteenth, twenty twenty-six"</p>
+                            </div>
+                            <button onclick="speakText('October fifteenth, twenty twenty-six', 'female')" class="mt-2 text-xs font-semibold text-lilac-600 hover:text-lilac-800 flex items-center space-x-1">
+                                <i class="fa-solid fa-volume-high"></i><span>Listen Pronunciation (US)</span>
+                            </button>
+                        </div>
+
+                        <!-- UK Format -->
+                        <div class="p-4 bg-white rounded-2xl border-2 border-sage-300 shadow-sm space-y-2">
+                            <span class="px-2.5 py-1 bg-sage-100 text-sage-700 text-xs font-bold rounded-md">🇬🇧 British Style (Date + Month + Year)</span>
+                            <div class="pt-2">
+                                <p class="text-xs font-bold text-slate-700">Written Formats:</p>
+                                <p class="text-sm font-semibold text-sage-700">15th of October 2026 <span class="text-xs text-slate-500 font-normal">or</span> 15 October 2026 / 15th October 2026</p>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-700">Spoken/Read Format:</p>
+                                <p class="text-xs italic text-slate-600">"The fifteenth of October, twenty twenty-six"</p>
+                            </div>
+                            <button onclick="speakText('The fifteenth of October, twenty twenty-six', 'male')" class="mt-2 text-xs font-semibold text-sage-600 hover:text-sage-800 flex items-center space-x-1">
+                                <i class="fa-solid fa-volume-high"></i><span>Listen Pronunciation (UK)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Years Reading Rule -->
+                    <div class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-xs space-y-1">
+                        <p class="font-bold text-amber-800">📌 How to Read Years (Tahun):</p>
+                        <p class="text-slate-700">• <strong>Before 2000:</strong> Split into two numbers. e.g., 1995 = <em>nineteen ninety-five</em>.</p>
+                        <p class="text-slate-700">• <strong>2000 - 2009:</strong> e.g., 2005 = <em>two thousand and five</em>.</p>
+                        <p class="text-slate-700">• <strong>2010 onwards:</strong> e.g., 2026 = <em>twenty twenty-six</em> or <em>two thousand twenty-six</em>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: SAMPLE DIALOGUES WITH GENDER VOICE DIFFERENTIATION -->
+            <div id="content-dialogues" class="material-content hidden space-y-6">
+                <div class="glass-card p-6 rounded-3xl border border-lilac-200">
+                    <h3 class="text-base font-bold text-slate-800 mb-2 flex items-center">
+                        <i class="fa-solid fa-comments text-lilac-600 mr-2"></i> Sample Dialogues: Asking & Answering Date & Day
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Click the character play buttons to hear boy 👦 and girl 👧 voice variations!</p>
+
+                    <div class="space-y-4">
+                        <!-- Dialogue 1 -->
+                        <div class="bg-white p-4 rounded-2xl border border-lilac-200 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <span class="font-bold text-xs text-lilac-700">Dialogue 1: Asking about today's day</span>
+                                <button onclick="playFullDialogue(1)" class="px-2.5 py-1 bg-lilac-100 hover:bg-lilac-200 text-lilac-700 text-xs font-bold rounded-lg transition flex items-center space-x-1">
+                                    <i class="fa-solid fa-play"></i><span>Play Full Dialogue</span>
+                                </button>
+                            </div>
+                            <div class="text-xs space-y-2">
+                                <div class="flex items-center justify-between bg-slate-50 p-2 rounded-xl">
+                                    <p><strong>Alex 👦:</strong> "What day is today?"</p>
+                                    <button onclick="speakText('What day is today?', 'male')" class="text-slate-400 hover:text-lilac-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
+                                <div class="flex items-center justify-between bg-lilac-50 p-2 rounded-xl">
+                                    <p><strong>Bella 👧:</strong> "Today is Monday!"</p>
+                                    <button onclick="speakText('Today is Monday!', 'female')" class="text-slate-400 hover:text-lilac-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dialogue 2 -->
+                        <div class="bg-white p-4 rounded-2xl border border-sage-200 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <span class="font-bold text-xs text-sage-700">Dialogue 2: Asking about date</span>
+                                <button onclick="playFullDialogue(2)" class="px-2.5 py-1 bg-sage-100 hover:bg-sage-200 text-sage-700 text-xs font-bold rounded-lg transition flex items-center space-x-1">
+                                    <i class="fa-solid fa-play"></i><span>Play Full Dialogue</span>
+                                </button>
+                            </div>
+                            <div class="text-xs space-y-2">
+                                <div class="flex items-center justify-between bg-slate-50 p-2 rounded-xl">
+                                    <p><strong>Reno 👦:</strong> "What is the date today?"</p>
+                                    <button onclick="speakText('What is the date today?', 'male')" class="text-slate-400 hover:text-sage-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
+                                <div class="flex items-center justify-between bg-sage-50 p-2 rounded-xl">
+                                    <p><strong>Siti 👧:</strong> "It is August 17th, 2026."</p>
+                                    <button onclick="speakText('It is August seventeenth, twenty twenty-six.', 'female')" class="text-slate-400 hover:text-sage-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dialogue 3 -->
+                        <div class="bg-white p-4 rounded-2xl border border-lilac-200 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <span class="font-bold text-xs text-lilac-700">Dialogue 3: Asking about birthday</span>
+                                <button onclick="playFullDialogue(3)" class="px-2.5 py-1 bg-lilac-100 hover:bg-lilac-200 text-lilac-700 text-xs font-bold rounded-lg transition flex items-center space-x-1">
+                                    <i class="fa-solid fa-play"></i><span>Play Full Dialogue</span>
+                                </button>
+                            </div>
+                            <div class="text-xs space-y-2">
+                                <div class="flex items-center justify-between bg-lilac-50 p-2 rounded-xl">
+                                    <p><strong>Dina 👧:</strong> "When is your birthday, Budi?"</p>
+                                    <button onclick="speakText('When is your birthday, Budi?', 'female')" class="text-slate-400 hover:text-lilac-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
+                                <div class="flex items-center justify-between bg-slate-50 p-2 rounded-xl">
+                                    <p><strong>Budi 👦:</strong> "My birthday is on May 2nd."</p>
+                                    <button onclick="speakText('My birthday is on May second.', 'male')" class="text-slate-400 hover:text-lilac-600"><i class="fa-solid fa-volume-high"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: PRACTICE SECTION -->
+        <section id="screenPractice" class="hidden space-y-6">
+            <div class="flex items-center justify-between bg-white/70 p-4 rounded-2xl border border-sage-200">
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateTo('menu')" class="w-9 h-9 bg-sage-100 hover:bg-sage-200 text-sage-700 rounded-xl flex items-center justify-center transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Practice Exercises</h2>
+                        <p class="text-xs text-slate-500">10 MCQs, 5 Fill-in-blanks, 5 Matching with instant feedback</p>
+                    </div>
+                </div>
+                <button onclick="resetPractice()" class="px-3 py-1.5 bg-lilac-500 text-white text-xs font-semibold rounded-lg hover:bg-lilac-600 transition">
+                    <i class="fa-solid fa-rotate-right mr-1"></i>Reset
+                </button>
+            </div>
+
+            <!-- Practice Type Selector Tabs -->
+            <div class="flex space-x-2 border-b border-sage-200 pb-2 overflow-x-auto custom-scrollbar">
+                <button onclick="switchPracticeSection('mcq')" id="pTab-mcq" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-sage-600 text-white shadow-sm whitespace-nowrap">
+                    Part A: 10 Multiple Choice
+                </button>
+                <button onclick="switchPracticeSection('fill')" id="pTab-fill" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-600 hover:bg-sage-50 whitespace-nowrap">
+                    Part B: 5 Fill-in-Blank
+                </button>
+                <button onclick="switchPracticeSection('match')" id="pTab-match" class="px-4 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-600 hover:bg-sage-50 whitespace-nowrap">
+                    Part C: 5 Matching
+                </button>
+            </div>
+
+            <!-- PRACTICE CONTAINER -->
+            <div id="practiceContainer" class="glass-card p-6 rounded-3xl border border-sage-200">
+                <!-- Dynamic Content Rendered via JS -->
+            </div>
+        </section>
+
+        <!-- SCREEN 4: ASSESSMENT SECTION WITH TIMED COUNTDOWN -->
+        <section id="screenAssessment" class="hidden space-y-6">
+            <div class="flex items-center justify-between bg-white/70 p-4 rounded-2xl border border-lilac-200">
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateTo('menu')" class="w-9 h-9 bg-lilac-100 hover:bg-lilac-200 text-lilac-700 rounded-xl flex items-center justify-center transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Final Assessment Test</h2>
+                        <p class="text-xs text-slate-500">20 Total Questions (10 MC, 5 Fill-in, 5 Match)</p>
+                    </div>
+                </div>
+                <div id="assessmentTimerBadge" class="px-3.5 py-1.5 bg-lilac-100 text-lilac-700 font-mono font-bold text-xs rounded-xl border border-lilac-300 flex items-center space-x-1.5">
+                    <i class="fa-solid fa-stopwatch text-lilac-600"></i>
+                    <span id="timerDisplay">20:00</span>
+                </div>
+            </div>
+
+            <!-- Test Start Intro Card -->
+            <div id="assessmentIntro" class="glass-card p-8 rounded-3xl text-center max-w-xl mx-auto space-y-4">
+                <div class="w-20 h-20 bg-lilac-100 text-lilac-600 rounded-3xl flex items-center justify-center text-3xl mx-auto">
+                    <i class="fa-solid fa-file-signature"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-800">Ready for the Exam?</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    You have <strong>20 minutes</strong> to complete 20 questions (10 MCQs, 5 Fill-in-blanks, 5 Matching). The test will automatically submit when the timer expires.
+                </p>
+                <button onclick="startAssessment()" class="px-6 py-3.5 bg-gradient-to-r from-lilac-600 to-sage-600 text-white font-bold text-sm rounded-xl shadow-lg btn-hover">
+                    Begin Assessment Now 🚀
+                </button>
+            </div>
+
+            <div id="assessmentContent" class="hidden glass-card p-6 rounded-3xl border border-lilac-200 space-y-8">
+                <!-- Assessment form populated dynamically -->
+            </div>
+
+            <!-- Assessment Result Card -->
+            <div id="assessmentResult" class="hidden glass-card p-8 rounded-3xl border border-lilac-300 text-center max-w-2xl mx-auto space-y-6">
+                <div id="gradeBadge" class="w-24 h-24 rounded-full bg-sage-500 text-white font-extrabold text-4xl flex items-center justify-center mx-auto shadow-xl">
+                    A
+                </div>
+                <div>
+                    <h3 class="text-2xl font-extrabold text-slate-800" id="resultName">Student Name</h3>
+                    <p class="text-xs text-slate-500" id="resultClass">Class 7A • Official Assessment Report Card</p>
+                </div>
+                <div class="grid grid-cols-3 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
+                    <div>
+                        <span class="text-slate-400 block font-medium">Total Score</span>
+                        <span id="resultScore" class="text-lg font-bold text-lilac-700">95 / 100</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Correct</span>
+                        <span id="resultCorrect" class="text-lg font-bold text-sage-600">19 / 20</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-medium">Status</span>
+                        <span id="resultStatus" class="text-lg font-bold text-emerald-600">PASSED</span>
+                    </div>
+                </div>
+                <div class="flex justify-center space-x-3">
+                    <button onclick="startAssessment()" class="px-5 py-2.5 bg-lilac-100 text-lilac-700 font-bold text-xs rounded-xl hover:bg-lilac-200">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Retake Test
+                    </button>
+                    <button onclick="navigateTo('reflection')" class="px-5 py-2.5 bg-sage-600 text-white font-bold text-xs rounded-xl hover:bg-sage-700">
+                        Proceed to Reflection <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 5: MINI GAME WITH DYNAMIC RANDOMIZED OPTIONS -->
+        <section id="screenGame" class="hidden space-y-6">
+            <div class="flex items-center justify-between bg-white/70 p-4 rounded-2xl border border-sage-200">
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateTo('menu')" class="w-9 h-9 bg-sage-100 hover:bg-sage-200 text-sage-700 rounded-xl flex items-center justify-center transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Mini Game: Date & Ordinal Speed Rush 🎮</h2>
+                        <p class="text-xs text-slate-500">Test how fast you can pick the correct answer in 60 seconds!</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-slate-400 block">Game Score</span>
+                    <span id="gameScore" class="text-base font-extrabold text-sage-600">0 Points</span>
+                </div>
+            </div>
+
+            <!-- Game Arena Card -->
+            <div class="glass-card p-6 md:p-8 rounded-3xl border border-sage-300 text-center relative overflow-hidden">
+                <div id="gameStartBox" class="py-8 space-y-4">
+                    <div class="w-20 h-20 bg-sage-100 text-sage-600 rounded-3xl flex items-center justify-center text-4xl mx-auto animate-bounce">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800">Speed Challenge</h3>
+                    <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+                        Random questions will pop up with shuffled answer options. Select the correct choice before the 60-second game timer expires!
+                    </p>
+                    <button onclick="startGame()" class="px-8 py-3.5 bg-sage-600 hover:bg-sage-700 text-white font-extrabold text-sm rounded-xl shadow-lg btn-hover">
+                        Start Game Now ⚡
+                    </button>
+                </div>
+
+                <div id="gamePlayBox" class="hidden space-y-6">
+                    <div class="flex justify-between items-center bg-slate-100 px-4 py-2.5 rounded-xl text-xs font-bold">
+                        <span class="text-slate-500">Time Left: <span id="gameTime" class="text-red-500 font-mono text-sm">60s</span></span>
+                        <span class="text-slate-500">Streak: <span id="gameCombo" class="text-sage-600 font-mono text-sm">0x</span></span>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border-2 border-sage-300 shadow-inner">
+                        <span class="text-xs text-slate-400 uppercase tracking-widest font-bold">Question</span>
+                        <h3 id="gameQuestionText" class="text-xl md:text-2xl font-extrabold text-slate-800 mt-2">Question text here?</h3>
+                    </div>
+
+                    <div id="gameOptionsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <!-- Options generated dynamically with shuffled positions -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN 6: REFLECTION SECTION -->
+        <section id="screenReflection" class="hidden space-y-6">
+            <div class="flex items-center justify-between bg-white/70 p-4 rounded-2xl border border-lilac-200">
+                <div class="flex items-center space-x-3">
+                    <button onclick="navigateTo('menu')" class="w-9 h-9 bg-lilac-100 hover:bg-lilac-200 text-lilac-700 rounded-xl flex items-center justify-center transition">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Self Reflection Journal</h2>
+                        <p class="text-xs text-slate-500">Reflect on your English learning experience today</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 md:p-8 rounded-3xl border border-lilac-200 space-y-6">
+                <!-- Understanding Star Rating -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 mb-2">1. How confident do you feel about telling English Dates & Days?</h3>
+                    <div class="flex space-x-3 text-2xl text-slate-300 cursor-pointer" id="starRating">
+                        <i class="fa-solid fa-star transition hover:text-amber-400" onclick="setRating(1)"></i>
+                        <i class="fa-solid fa-star transition hover:text-amber-400" onclick="setRating(2)"></i>
+                        <i class="fa-solid fa-star transition hover:text-amber-400" onclick="setRating(3)"></i>
+                        <i class="fa-solid fa-star transition hover:text-amber-400" onclick="setRating(4)"></i>
+                        <i class="fa-solid fa-star transition hover:text-amber-400" onclick="setRating(5)"></i>
+                    </div>
+                </div>
+
+                <!-- Self Assessment Checklist -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 mb-2">2. What have you mastered? (Check all that apply)</h3>
+                    <div class="space-y-2 text-xs">
+                        <label class="flex items-center space-x-2 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="checkbox" class="rounded text-lilac-600 focus:ring-lilac-500 w-4 h-4">
+                            <span>I can name all 7 days of the week in correct English order.</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="checkbox" class="rounded text-lilac-600 focus:ring-lilac-500 w-4 h-4">
+                            <span>I can spell and write ordinal numbers (1st, 2nd, 3rd, 21st, etc.).</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="checkbox" class="rounded text-lilac-600 focus:ring-lilac-500 w-4 h-4">
+                            <span>I understand US format (Oct 15, 2026) and UK format (15th of October 2026).</span>
+                        </label>
+                        <label class="flex items-center space-x-2 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer">
+                            <input type="checkbox" class="rounded text-lilac-600 focus:ring-lilac-500 w-4 h-4">
+                            <span>I can ask and answer "What day is today?" and "When is your birthday?".</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Reflection Notes -->
+                <div>
+                    <h3 class="text-sm font-bold text-slate-800 mb-2">3. What was the most interesting or tricky part for you?</h3>
+                    <textarea id="reflectionNotes" rows="3" placeholder="Write your notes or thoughts here..." class="w-full p-3 bg-slate-50 border border-lilac-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-lilac-500"></textarea>
+                </div>
+
+                <button onclick="saveReflection()" class="w-full py-3 bg-gradient-to-r from-lilac-600 to-sage-600 text-white font-bold text-xs rounded-xl shadow-md hover:opacity-90">
+                    Save Reflection Summary
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // GLOBAL STATE
+        const state = {
+            studentName: '',
+            studentClass: '',
+            currentPracticeTab: 'mcq',
+            userRating: 0,
+            gameScore: 0,
+            gameCombo: 0,
+            gameTimer: null,
+            audioEnabled: true,
+            assessmentTimeLeft: 1200, // 20 minutes in seconds
+            assessmentInterval: null
+        };
+
+        // -------------------------------------------------------------
+        // AUDIO ASSISTANT & SPEECH SYNTHESIS ENGINE
+        // -------------------------------------------------------------
+        function toggleAudio() {
+            state.audioEnabled = !state.audioEnabled;
+            const btnText = document.getElementById('audioStatusText');
+            const icon = document.getElementById('audioIcon');
+
+            if (state.audioEnabled) {
+                btnText.innerText = 'Audio: ON';
+                icon.className = 'fa-solid fa-volume-high text-sage-600';
+                speakText('Audio Assistant Enabled');
+            } else {
+                btnText.innerText = 'Audio: OFF';
+                icon.className = 'fa-solid fa-volume-xmark text-slate-400';
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            }
+        }
+
+        function speakText(text, gender = 'neutral') {
+            if (!state.audioEnabled) return;
+            if (!('speechSynthesis' in window)) return;
+
+            window.speechSynthesis.cancel(); // Stop current speech
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.92;
+            utterance.lang = 'en-US';
+
+            // Voice gender adjustments using pitch & voice selection
+            if (gender === 'female') {
+                utterance.pitch = 1.35; // Higher pitch for female voice
+            } else if (gender === 'male') {
+                utterance.pitch = 0.85; // Lower pitch for male voice
+            } else {
+                utterance.pitch = 1.0;
+            }
+
+            // Try selecting specific system voice if available
+            const voices = window.speechSynthesis.getVoices();
+            if (voices.length > 0) {
+                if (gender === 'female') {
+                    const femaleVoice = voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('victoria')));
+                    if (femaleVoice) utterance.voice = femaleVoice;
+                } else if (gender === 'male') {
+                    const maleVoice = voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('david') || v.name.toLowerCase().includes('george') || v.name.toLowerCase().includes('alex')));
+                    if (maleVoice) utterance.voice = maleVoice;
+                }
+            }
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function playFullDialogue(dNum) {
+            if (!state.audioEnabled) {
+                alertModal("Audio is currently turned OFF. Turn ON audio from the header button to hear dialogue speech.");
+                return;
+            }
+
+            if (dNum === 1) {
+                speakText("What day is today?", "male");
+                setTimeout(() => speakText("Today is Monday!", "female"), 1800);
+            } else if (dNum === 2) {
+                speakText("What is the date today?", "male");
+                setTimeout(() => speakText("It is August seventeenth, twenty twenty-six.", "female"), 2000);
+            } else if (dNum === 3) {
+                speakText("When is your birthday, Budi?", "female");
+                setTimeout(() => speakText("My birthday is on May second.", "male"), 2000);
+            }
+        }
+
+        // -------------------------------------------------------------
+        // QUESTION DATABASE (Varied options across 7th Grade Syllabus)
+        // -------------------------------------------------------------
+        const mcqQuestions = [
+            {
+                q: "What day comes right after Wednesday?",
+                options: ["Tuesday", "Thursday", "Friday", "Monday"],
+                ans: 1,
+                explain: "Wednesday -> Thursday -> Friday."
+            },
+            {
+                q: "How do you write '3rd' in word form?",
+                options: ["Three", "Third", "Thirty", "Thirder"],
+                ans: 1,
+                explain: "3rd is the ordinal number written as 'Third'."
+            },
+            {
+                q: "Which month comes immediately before August?",
+                options: ["July", "September", "June", "May"],
+                ans: 0,
+                explain: "July is the 7th month, directly before August (8th month)."
+            },
+            {
+                q: "Complete the sentence: 'My birthday is _____ October 12th.'",
+                options: ["in", "at", "on", "by"],
+                ans: 2,
+                explain: "We use preposition 'ON' before specific dates and days."
+            },
+            {
+                q: "How is the date '15th of October 2026' usually written in British Style?",
+                options: ["October 15, 2026", "15th of October 2026", "2026 October 15", "15-10-2026"],
+                ans: 1,
+                explain: "British style explicitly places date before month: '15th of October 2026'."
+            },
+            {
+                q: "What is the correct ordinal spelling for the number 22?",
+                options: ["Twenty-two", "Twenty-second", "Twenty-twoed", "Two-twenty"],
+                ans: 1,
+                explain: "22 in ordinal form is 22nd (Twenty-second)."
+            },
+            {
+                q: "If today is Friday, what day was yesterday?",
+                options: ["Saturday", "Wednesday", "Thursday", "Sunday"],
+                ans: 2,
+                explain: "Yesterday is the day before today. Before Friday is Thursday."
+            },
+            {
+                q: "How do we commonly read the year '2026'?",
+                options: ["Two zero two six", "Twenty twenty-six", "Two hundred twenty-six", "Twenty six"],
+                ans: 1,
+                explain: "Years after 2010 are commonly spoken as split pairs: 20-26 (Twenty twenty-six)."
+            },
+            {
+                q: "Which word starts the question: '______ is the date today?'",
+                options: ["What", "When", "Where", "Who"],
+                ans: 0,
+                explain: "We ask 'What is the date today?'."
+            },
+            {
+                q: "Which preposition is correct: 'We start our school holidays _____ December.'",
+                options: ["on", "in", "at", "to"],
+                ans: 1,
+                explain: "We use preposition 'IN' for months when no specific date is included."
+            }
+        ];
+
+        const fillQuestions = [
+            { q: "Today is Tuesday, so tomorrow will be ____________.", ans: "wednesday", hint: "3rd day of the week" },
+            { q: "The ninth month of the year is ____________.", ans: "september", hint: "Starts with S" },
+            { q: "The ordinal number form for '1' is ____________ (in word).", ans: "first", hint: "Opposite of last" },
+            { q: "We use preposition '____________' before days of the week (e.g., ____ Monday).", ans: "on", hint: "2-letter preposition" },
+            { q: "December is the ____________ (12th) month of the year.", ans: "twelfth", hint: "Ordinal spelling for 12" }
+        ];
+
+        const matchQuestions = [
+            { id: 1, left: "1st", right: "First" },
+            { id: 2, left: "Saturday & Sunday", right: "Weekend" },
+            { id: 3, left: "21st", right: "Twenty-first" },
+            { id: 4, left: "Preposition for months", right: "In" },
+            { id: 5, left: "Preposition for exact dates", right: "On" }
+        ];
+
+        // -------------------------------------------------------------
+        // USER IDENTITY LOGIC
+        // -------------------------------------------------------------
+        function saveIdentity(e) {
+            e.preventDefault();
+            const name = document.getElementById('inputName').value.trim();
+            const cls = document.getElementById('inputClass').value;
+
+            if (!name || !cls) return;
+
+            state.studentName = name;
+            state.studentClass = cls;
+
+            // Update UI headers
+            document.getElementById('headerStudentName').innerText = name;
+            document.getElementById('headerStudentClass').innerText = `Class ${cls}`;
+            document.getElementById('welcomeName').innerText = name;
+            document.getElementById('userAvatar').innerText = name.charAt(0).toUpperCase();
+
+            // Show Header and switch screen
+            document.getElementById('mainHeader').classList.remove('hidden');
+            navigateTo('menu');
+        }
+
+        function editIdentity() {
+            navigateTo('identity');
+        }
+
+        function navigateTo(screenId) {
+            const screens = ['screenIdentity', 'screenMenu', 'screenMaterials', 'screenPractice', 'screenAssessment', 'screenGame', 'screenReflection'];
+            screens.forEach(id => document.getElementById(id).classList.add('hidden'));
+
+            if (screenId === 'identity') document.getElementById('screenIdentity').classList.remove('hidden');
+            if (screenId === 'menu') document.getElementById('screenMenu').classList.remove('hidden');
+            if (screenId === 'materials') {
+                document.getElementById('screenMaterials').classList.remove('hidden');
+                switchMaterialTab('days');
+            }
+            if (screenId === 'practice') {
+                document.getElementById('screenPractice').classList.remove('hidden');
+                renderPractice();
+            }
+            if (screenId === 'assessment') {
+                document.getElementById('screenAssessment').classList.remove('hidden');
+                document.getElementById('assessmentIntro').classList.remove('hidden');
+                document.getElementById('assessmentContent').classList.add('hidden');
+                document.getElementById('assessmentResult').classList.add('hidden');
+                clearInterval(state.assessmentInterval);
+            }
+            if (screenId === 'game') {
+                document.getElementById('screenGame').classList.remove('hidden');
+                resetGame();
+            }
+            if (screenId === 'reflection') {
+                document.getElementById('screenReflection').classList.remove('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // -------------------------------------------------------------
+        // MATERIAL TABS SWITCHING
+        // -------------------------------------------------------------
+        function switchMaterialTab(tabName) {
+            const tabs = ['days', 'months', 'dates', 'dialogues'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const content = document.getElementById(`content-${t}`);
+                if (t === tabName) {
+                    btn.className = "material-tab px-4 py-2 rounded-xl text-xs font-bold transition bg-lilac-600 text-white shadow-md whitespace-nowrap";
+                    content.classList.remove('hidden');
+                } else {
+                    btn.className = "material-tab px-4 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-600 hover:bg-lilac-50 whitespace-nowrap";
+                    content.classList.add('hidden');
+                }
+            });
+        }
+
+        // -------------------------------------------------------------
+        // PRACTICE MODULE LOGIC
+        // -------------------------------------------------------------
+        function switchPracticeSection(type) {
+            state.currentPracticeTab = type;
+            const tabs = ['mcq', 'fill', 'match'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`pTab-${t}`);
+                if (t === type) {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition bg-sage-600 text-white shadow-sm whitespace-nowrap";
+                } else {
+                    btn.className = "px-4 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-600 hover:bg-sage-50 whitespace-nowrap";
+                }
+            });
+            renderPractice();
+        }
+
+        function renderPractice() {
+            const container = document.getElementById('practiceContainer');
+            container.innerHTML = '';
+
+            if (state.currentPracticeTab === 'mcq') {
+                let html = `<h3 class="text-sm font-bold text-sage-800 mb-4">Part A: Multiple Choice Questions (10 Questions)</h3><div class="space-y-6">`;
+                mcqQuestions.forEach((item, index) => {
+                    html += `
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                            <p class="text-xs font-bold text-slate-800 mb-3"><span class="text-sage-600">${index + 1}.</span> ${item.q}</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                ${item.options.map((opt, i) => `
+                                    <button onclick="checkPracticeMCQ(${index}, ${i}, this)" class="p-2.5 rounded-xl border border-slate-200 hover:border-sage-400 text-left transition font-medium text-slate-700 bg-slate-50 hover:bg-sage-50">
+                                        ${String.fromCharCode(65 + i)}. ${opt}
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <div id="mcqFeedback-${index}" class="hidden mt-3 p-2.5 rounded-xl text-xs"></div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+                container.innerHTML = html;
+            } else if (state.currentPracticeTab === 'fill') {
+                let html = `<h3 class="text-sm font-bold text-sage-800 mb-4">Part B: Fill in the Blank (5 Questions)</h3><div class="space-y-4">`;
+                fillQuestions.forEach((item, index) => {
+                    html += `
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                            <p class="text-xs font-bold text-slate-800"><span class="text-sage-600">${index + 1}.</span> ${item.q}</p>
+                            <div class="flex space-x-2">
+                                <input type="text" id="fillInput-${index}" placeholder="Type answer here..." class="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs outline-none focus:ring-2 focus:ring-sage-500 flex-grow">
+                                <button onclick="checkPracticeFill(${index})" class="px-4 py-2 bg-sage-600 text-white text-xs font-bold rounded-xl hover:bg-sage-700">Submit</button>
+                            </div>
+                            <div id="fillFeedback-${index}" class="hidden p-2 rounded-xl text-xs"></div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+                container.innerHTML = html;
+            } else if (state.currentPracticeTab === 'match') {
+                let html = `
+                    <h3 class="text-sm font-bold text-sage-800 mb-2">Part C: Matching Exercise (5 Pairs)</h3>
+                    <p class="text-xs text-slate-500 mb-4">Click an item on the Left, then click its matching pair on the Right!</p>
+                    <div id="matchingBoard" class="grid grid-cols-2 gap-4"></div>
+                    <div id="matchingFeedback" class="mt-4 p-3 rounded-2xl text-xs text-center font-bold hidden"></div>
+                `;
+                container.innerHTML = html;
+                initPracticeMatching();
+            }
+        }
+
+        function checkPracticeMCQ(qIdx, optIdx, btn) {
+            const item = mcqQuestions[qIdx];
+            const feedbackEl = document.getElementById(`mcqFeedback-${qIdx}`);
+            const buttons = btn.parentElement.querySelectorAll('button');
+            buttons.forEach(b => b.classList.remove('bg-emerald-100', 'border-emerald-500', 'bg-red-100', 'border-red-500'));
+
+            if (optIdx === item.ans) {
+                btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+                feedbackEl.className = "mt-3 p-2.5 rounded-xl text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 block";
+                feedbackEl.innerHTML = `<strong>Correct! 🎉</strong> ${item.explain}`;
+            } else {
+                btn.classList.add('bg-red-100', 'border-red-500', 'text-red-900');
+                feedbackEl.className = "mt-3 p-2.5 rounded-xl text-xs bg-red-50 text-red-800 border border-red-200 block";
+                feedbackEl.innerHTML = `<strong>Incorrect! ❌</strong> Try again or check the materials.`;
+            }
+        }
+
+        function checkPracticeFill(index) {
+            const inputVal = document.getElementById(`fillInput-${index}`).value.trim().toLowerCase();
+            const item = fillQuestions[index];
+            const feedbackEl = document.getElementById(`fillFeedback-${index}`);
+
+            if (inputVal === item.ans.toLowerCase()) {
+                feedbackEl.className = "p-2 rounded-xl text-xs bg-emerald-100 text-emerald-800 border border-emerald-300 block";
+                feedbackEl.innerHTML = `<strong>Great Job! 🎉</strong> '${item.ans}' is correct.`;
+            } else {
+                feedbackEl.className = "p-2 rounded-xl text-xs bg-red-100 text-red-800 border border-red-300 block";
+                feedbackEl.innerHTML = `<strong>Not quite right! 💡 Hint:</strong> ${item.hint}`;
+            }
+        }
+
+        let selectedLeft = null;
+        let matchedPairs = 0;
+
+        function initPracticeMatching() {
+            const board = document.getElementById('matchingBoard');
+            if (!board) return;
+
+            const shuffledRight = [...matchQuestions].sort(() => Math.random() - 0.5);
+
+            let leftHTML = `<div class="space-y-2">`;
+            matchQuestions.forEach(m => {
+                leftHTML += `<button onclick="selectMatchLeft(${m.id}, this)" class="match-left-btn w-full p-3 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-left transition hover:border-sage-400" data-id="${m.id}">${m.left}</button>`;
+            });
+            leftHTML += `</div>`;
+
+            let rightHTML = `<div class="space-y-2">`;
+            shuffledRight.forEach(m => {
+                rightHTML += `<button onclick="selectMatchRight(${m.id}, this)" class="match-right-btn w-full p-3 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-left transition hover:border-sage-400" data-id="${m.id}">${m.right}</button>`;
+            });
+            rightHTML += `</div>`;
+
+            board.innerHTML = leftHTML + rightHTML;
+            selectedLeft = null;
+            matchedPairs = 0;
+        }
+
+        function selectMatchLeft(id, btn) {
+            document.querySelectorAll('.match-left-btn').forEach(b => b.classList.remove('ring-2', 'ring-sage-500', 'bg-sage-50'));
+            btn.classList.add('ring-2', 'ring-sage-500', 'bg-sage-50');
+            selectedLeft = { id, btn };
+        }
+
+        function selectMatchRight(id, btn) {
+            if (!selectedLeft) return;
+
+            if (selectedLeft.id === id) {
+                selectedLeft.btn.className = "w-full p-3 bg-emerald-100 border border-emerald-400 text-emerald-800 rounded-xl text-xs font-bold text-left cursor-default";
+                btn.className = "w-full p-3 bg-emerald-100 border border-emerald-400 text-emerald-800 rounded-xl text-xs font-bold text-left cursor-default";
+                selectedLeft.btn.onclick = null;
+                btn.onclick = null;
+                matchedPairs++;
+
+                if (matchedPairs === matchQuestions.length) {
+                    const fb = document.getElementById('matchingFeedback');
+                    fb.className = "mt-4 p-3 rounded-2xl text-xs text-center font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 block";
+                    fb.innerHTML = "🎉 Excellent! All 5 pairs matched correctly!";
+                }
+            } else {
+                btn.classList.add('bg-red-100', 'border-red-400');
+                setTimeout(() => btn.classList.remove('bg-red-100', 'border-red-400'), 800);
+            }
+            selectedLeft = null;
+        }
+
+        function resetPractice() {
+            renderPractice();
+        }
+
+        // -------------------------------------------------------------
+        // ASSESSMENT TIMER & ENGINE LOGIC
+        // -------------------------------------------------------------
+        function startAssessment() {
+            document.getElementById('assessmentIntro').classList.add('hidden');
+            document.getElementById('assessmentResult').classList.add('hidden');
+            const content = document.getElementById('assessmentContent');
+            content.classList.remove('hidden');
+
+            // Reset & Start 20-minute Timer (1200 seconds)
+            state.assessmentTimeLeft = 1200;
+            updateTimerDisplay();
+            clearInterval(state.assessmentInterval);
+            state.assessmentInterval = setInterval(() => {
+                state.assessmentTimeLeft--;
+                updateTimerDisplay();
+
+                if (state.assessmentTimeLeft <= 0) {
+                    clearInterval(state.assessmentInterval);
+                    alertModal("⏰ Time is up! Your assessment is submitting automatically.");
+                    submitAssessment(null);
+                }
+            }, 1000);
+
+            // Render Full 20 Question Assessment Form
+            let html = `
+                <form id="assessmentForm" onsubmit="submitAssessment(event)" class="space-y-6">
+                    <div class="border-b border-lilac-200 pb-3">
+                        <h3 class="text-base font-bold text-lilac-800">Part I: Multiple Choice Questions (10 Questions)</h3>
+                    </div>
+            `;
+
+            mcqQuestions.forEach((q, idx) => {
+                html += `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-2">
+                        <p class="text-xs font-bold text-slate-800">${idx + 1}. ${q.q}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            ${q.options.map((opt, oIdx) => `
+                                <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-lilac-50 cursor-pointer">
+                                    <input type="radio" name="a_mcq_${idx}" value="${oIdx}" class="text-lilac-600 focus:ring-lilac-500">
+                                    <span>${opt}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="border-b border-lilac-200 pb-3 pt-4">
+                    <h3 class="text-base font-bold text-lilac-800">Part II: Fill in the Blanks (5 Questions)</h3>
+                </div>
+            `;
+
+            fillQuestions.forEach((q, idx) => {
+                html += `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-2">
+                        <p class="text-xs font-bold text-slate-800">${idx + 11}. ${q.q}</p>
+                        <input type="text" name="a_fill_${idx}" placeholder="Your answer..." class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs outline-none focus:ring-2 focus:ring-lilac-500">
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="border-b border-lilac-200 pb-3 pt-4">
+                    <h3 class="text-base font-bold text-lilac-800">Part III: Matching (5 Questions)</h3>
+                    <p class="text-xs text-slate-500">Select the matching term from the dropdown options:</p>
+                </div>
+            `;
+
+            matchQuestions.forEach((m, idx) => {
+                html += `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                        <span class="font-bold text-slate-800">${idx + 16}. ${m.left}</span>
+                        <select name="a_match_${idx}" class="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-lilac-500">
+                            <option value="" disabled selected>Select matching pair...</option>
+                            ${matchQuestions.map(mq => `<option value="${mq.right}">${mq.right}</option>`).join('')}
+                        </select>
+                    </div>
+                `;
+            });
+
+            html += `
+                    <div class="pt-4">
+                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-lilac-600 to-sage-600 text-white font-bold text-sm rounded-xl shadow-lg hover:opacity-95">
+                            Submit Final Assessment 🏁
+                        </button>
+                    </div>
+                </form>
+            `;
+
+            content.innerHTML = html;
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(state.assessmentTimeLeft / 60);
+            const seconds = state.assessmentTimeLeft % 60;
+            const displayStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const badge = document.getElementById('assessmentTimerBadge');
+            const timerEl = document.getElementById('timerDisplay');
+            if (timerEl) timerEl.innerText = displayStr;
+
+            if (state.assessmentTimeLeft < 120 && badge) {
+                badge.className = "px-3.5 py-1.5 bg-red-100 text-red-700 font-mono font-bold text-xs rounded-xl border border-red-300 flex items-center space-x-1.5 animate-pulse";
+            } else if (badge) {
+                badge.className = "px-3.5 py-1.5 bg-lilac-100 text-lilac-700 font-mono font-bold text-xs rounded-xl border border-lilac-300 flex items-center space-x-1.5";
+            }
+        }
+
+        function submitAssessment(e) {
+            if (e) e.preventDefault();
+            clearInterval(state.assessmentInterval);
+
+            const form = document.getElementById('assessmentForm');
+            if (!form) return;
+            const formData = new FormData(form);
+
+            let correctCount = 0;
+            const total = 20;
+
+            // Check MCQs
+            mcqQuestions.forEach((q, idx) => {
+                const val = formData.get(`a_mcq_${idx}`);
+                if (val !== null && parseInt(val) === q.ans) correctCount++;
+            });
+
+            // Check Fill
+            fillQuestions.forEach((q, idx) => {
+                const val = (formData.get(`a_fill_${idx}`) || '').trim().toLowerCase();
+                if (val === q.ans.toLowerCase()) correctCount++;
+            });
+
+            // Check Match
+            matchQuestions.forEach((m, idx) => {
+                const val = formData.get(`a_match_${idx}`);
+                if (val === m.right) correctCount++;
+            });
+
+            const scorePercent = Math.round((correctCount / total) * 100);
+            let grade = 'F';
+            let status = 'NEEDS IMPROVEMENT';
+            let badgeBg = 'bg-red-500';
+
+            if (scorePercent >= 90) { grade = 'A'; status = 'EXCELLENT 🌟'; badgeBg = 'bg-emerald-500'; }
+            else if (scorePercent >= 80) { grade = 'B'; status = 'GOOD JOB 👍'; badgeBg = 'bg-sage-500'; }
+            else if (scorePercent >= 70) { grade = 'C'; status = 'PASSED'; badgeBg = 'bg-lilac-500'; }
+            else { grade = 'D'; status = 'NEEDS RETAKE'; badgeBg = 'bg-amber-500'; }
+
+            document.getElementById('assessmentContent').classList.add('hidden');
+            const resCard = document.getElementById('assessmentResult');
+            resCard.classList.remove('hidden');
+
+            document.getElementById('resultName').innerText = state.studentName || 'Student';
+            document.getElementById('resultClass').innerText = `Class ${state.studentClass || '7A'} • Official Grade Certificate`;
+            document.getElementById('resultScore').innerText = `${scorePercent} / 100`;
+            document.getElementById('resultCorrect').innerText = `${correctCount} / 20`;
+            document.getElementById('resultStatus').innerText = status;
+
+            const badge = document.getElementById('gradeBadge');
+            badge.innerText = grade;
+            badge.className = `w-24 h-24 rounded-full ${badgeBg} text-white font-extrabold text-4xl flex items-center justify-center mx-auto shadow-xl`;
+        }
+
+        // -------------------------------------------------------------
+        // MINI GAME: VARIED RANDOMIZED CHOICE SYSTEM
+        // -------------------------------------------------------------
+        const gameQuestionPool = [
+            { q: "What is the ordinal number for '1'?", correct: "1st (First)", wrong: ["1th (One)", "1nd (Once)", "1rd (First)"] },
+            { q: "What is the ordinal number for '2'?", correct: "2nd (Second)", wrong: ["2th (Two)", "2st (Sec)", "2rd (Second)"] },
+            { q: "What is the ordinal number for '3'?", correct: "3rd (Third)", wrong: ["3th (Three)", "3st (Thir)", "3nd (Third)"] },
+            { q: "What is the ordinal number for '21'?", correct: "21st", wrong: ["21th", "21nd", "21rd"] },
+            { q: "What is the ordinal number for '22'?", correct: "22nd", wrong: ["22st", "22th", "22rd"] },
+            { q: "What is the ordinal number for '23'?", correct: "23rd", wrong: ["23st", "23nd", "23th"] },
+            { q: "Which day comes right before Friday?", correct: "Thursday", wrong: ["Wednesday", "Saturday", "Tuesday"] },
+            { q: "Which day comes right after Sunday?", correct: "Monday", wrong: ["Tuesday", "Saturday", "Friday"] },
+            { q: "Which month is the 12th month of the year?", correct: "December", wrong: ["November", "January", "October"] },
+            { q: "Which month is the 1st month of the year?", correct: "January", wrong: ["February", "December", "March"] },
+            { q: "Which preposition goes before days: '____ Monday'?", correct: "on", wrong: ["in", "at", "by"] },
+            { q: "Which preposition goes before months alone: '____ August'?", correct: "in", wrong: ["on", "at", "to"] },
+            { q: "In British Style, how is 15 Oct written?", correct: "15th of October 2026", wrong: ["October 15, 2026", "2026 Oct 15", "Oct 15th 2026"] },
+            { q: "How is the year '2026' usually read?", correct: "Twenty twenty-six", wrong: ["Two zero two six", "Two hundred twenty-six", "Twenty hundred six"] }
+        ];
+
+        let gameScoreVal = 0;
+        let gameTimeVal = 60;
+        let gameInterval = null;
+
+        function resetGame() {
+            clearInterval(gameInterval);
+            document.getElementById('gameStartBox').classList.remove('hidden');
+            document.getElementById('gamePlayBox').classList.add('hidden');
+            document.getElementById('gameScore').innerText = '0 Points';
+            document.getElementById('gameCombo').innerText = '0x';
+            state.gameCombo = 0;
+        }
+
+        function startGame() {
+            gameScoreVal = 0;
+            gameTimeVal = 60;
+            state.gameCombo = 0;
+            document.getElementById('gameStartBox').classList.add('hidden');
+            document.getElementById('gamePlayBox').classList.remove('hidden');
+            document.getElementById('gameScore').innerText = '0 Points';
+            document.getElementById('gameTime').innerText = '60s';
+            document.getElementById('gameCombo').innerText = '0x';
+
+            nextGameQuestion();
+
+            gameInterval = setInterval(() => {
+                gameTimeVal--;
+                document.getElementById('gameTime').innerText = `${gameTimeVal}s`;
+                if (gameTimeVal <= 0) {
+                    clearInterval(gameInterval);
+                    finishGame();
+                }
+            }, 1000);
+        }
+
+        function nextGameQuestion() {
+            // Pick random question from pool
+            const qItem = gameQuestionPool[Math.floor(Math.random() * gameQuestionPool.length)];
+            document.getElementById('gameQuestionText').innerText = qItem.q;
+
+            // Combine correct answer and wrong answers, then shuffle options completely
+            const rawOptions = [
+                { text: qItem.correct, isCorrect: true },
+                ...qItem.wrong.map(w => ({ text: w, isCorrect: false }))
+            ];
+            
+            // Shuffle array randomly
+            const shuffled = rawOptions.sort(() => Math.random() - 0.5);
+
+            const grid = document.getElementById('gameOptionsGrid');
+            grid.innerHTML = shuffled.map((opt) => `
+                <button onclick="answerGame(${opt.isCorrect})" class="p-4 bg-white border-2 border-sage-200 hover:border-sage-500 hover:bg-sage-50 rounded-2xl text-sm font-bold text-slate-700 transition btn-hover">
+                    ${opt.text}
+                </button>
+            `).join('');
+        }
+
+        function answerGame(isCorrect) {
+            if (isCorrect) {
+                state.gameCombo++;
+                const bonus = state.gameCombo * 2;
+                gameScoreVal += (10 + bonus);
+                document.getElementById('gameScore').innerText = `${gameScoreVal} Points`;
+                document.getElementById('gameCombo').innerText = `${state.gameCombo}x`;
+            } else {
+                state.gameCombo = 0;
+                document.getElementById('gameCombo').innerText = '0x';
+            }
+            nextGameQuestion();
+        }
+
+        function finishGame() {
+            alertModal(`🎮 Game Over! You scored ${gameScoreVal} points with a max streak combo! Fantastic job!`);
+            resetGame();
+        }
+
+        // -------------------------------------------------------------
+        // REFLECTION LOGIC & NOTIFICATION MODALS
+        // -------------------------------------------------------------
+        function setRating(stars) {
+            state.userRating = stars;
+            const starIcons = document.querySelectorAll('#starRating i');
+            starIcons.forEach((icon, idx) => {
+                if (idx < stars) {
+                    icon.className = "fa-solid fa-star text-amber-400 text-2xl transition";
+                } else {
+                    icon.className = "fa-solid fa-star text-slate-300 text-2xl transition";
+                }
+            });
+        }
+
+        function saveReflection() {
+            const notes = document.getElementById('reflectionNotes').value;
+            alertModal(`✨ Thank you, ${state.studentName || 'Student'}! Your reflection response for Class ${state.studentClass || '7A'} has been saved successfully.`);
+        }
+
+        function alertModal(msg) {
+            const modal = document.createElement('div');
+            modal.className = "fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in";
+            modal.innerHTML = `
+                <div class="glass-card max-w-sm w-full p-6 rounded-3xl text-center space-y-4 border border-white shadow-2xl">
+                    <div class="w-12 h-12 bg-lilac-100 text-lilac-600 rounded-full flex items-center justify-center text-xl mx-auto">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <p class="text-xs font-semibold text-slate-700 leading-relaxed">${msg}</p>
+                    <button onclick="this.closest('.fixed').remove()" class="px-6 py-2 bg-lilac-600 text-white font-bold text-xs rounded-xl hover:bg-lilac-700 transition">
+                        Okay, got it!
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Initialize Application
+        window.onload = function() {
+            navigateTo('identity');
+        };
+    </script>
+</body>
+</html>
